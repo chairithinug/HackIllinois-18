@@ -21,11 +21,16 @@ Accomplishments that I'm proud of
 
 What I learned
 
--Learn what openCV is and how to use it. -Learn how to use SceneBuilder and JFX.
+-Learn what openCV is and how to use it.
+-Learn how to use SceneBuilder and JFX.
 
 What's next for Key-Motion
 
--Could be applied by using Microsoft Azure (which I forgot to use...) -Make the code cleaner -Improve GUI -Improve sound quality -Improve stability
+-Could be applied by using Microsoft Azure (which I forgot to use...)
+-Make the code cleaner
+-Improve GUI
+-Improve sound quality
+-Improve stability
 
 https://pages.mtu.edu/~suits/notefreqs.html
 https://stackoverflow.com/questions/34611134/java-beep-sound-produce-sound-of-some-specific-frequencies/34614140
