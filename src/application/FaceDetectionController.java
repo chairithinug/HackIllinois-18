@@ -1,5 +1,6 @@
 package application;
 
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +19,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -50,12 +52,16 @@ public class FaceDetectionController {
     private VideoCapture capture;
     // a flag to change the button behavior
     private boolean cameraActive;
-
+    
     // face cascade classifier
     private CascadeClassifier faceCascade;
     private int absoluteFaceSize;
 
+
+    public int stepCount = 0;
+    public int timeCount = 0;
     public Sound sound;
+    public Scanner sc = new Scanner(System.in);
 
     /**
      * Init the controller, at start time
@@ -123,6 +129,29 @@ public class FaceDetectionController {
             this.stopAcquisition();
         }
     }
+    @FXML
+    public void decreaseKey() {
+        stepCount--;
+    }
+    
+    @FXML
+    public void increaseKey() {
+        stepCount++;
+    }
+    
+    @FXML
+    public void increaseTime() {
+        timeCount++;
+    }
+
+    @FXML
+    public void decreaseTime() {
+       timeCount--;
+    }
+
+    
+
+
 
     /**
      * Get a frame from the opened video stream (if any)
@@ -188,35 +217,36 @@ public class FaceDetectionController {
                             2);
             // if(facesArray[i].br().y && facesArray[i].br().x)
 
-            makeSound((int) facesArray[i].br().x, (int) facesArray[i].br().y);
+            makeSound((int) facesArray[i].br().x, (int) facesArray[i].br().y, stepCount);
             System.out.print(facesArray[i].br().x + " ");
             System.out.println(facesArray[i].br().y);
-        }
 
+        }
     }
 
-    public void makeSound(int x, int y) {
+
+    public void makeSound(int x, int y, int stepCount) {
 
         try {
             if (x > 530) {
                 if (y > 340)// 8
-                    Sound.tone(1047, 80, 1);
+                    Sound.tone(calculateFreq(12), timeExtender(), 1);
                 else// 4
-                    Sound.tone(880, 80, 1);
+                    Sound.tone(calculateFreq(9), timeExtender(), 1);
             } else if (x > 420) {
                 if (y > 340)// 7
-                    Sound.tone(587, 80, 1);
+                    Sound.tone(calculateFreq(2), timeExtender(), 1);
                 else// 3
-                    Sound.tone(784, 80, 1);
+                    Sound.tone(calculateFreq(7), timeExtender(), 1);
             } else if (x > 310) {
                 if (y > 340)// 6
-                    Sound.tone(698, 80, 1);
+                    Sound.tone(calculateFreq(5), timeExtender(), 1);
                 else// 2
-                    Sound.tone(523, 80, 1);
+                    Sound.tone(calculateFreq(0), timeExtender(), 1);
             } else if (y > 340) // 5
-                Sound.tone(988, 80, 1);
+                Sound.tone(calculateFreq(11), timeExtender(), 1);
             else // 1
-                Sound.tone(659, 80, 1);
+                Sound.tone(calculateFreq(4), timeExtender(), 1);
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
@@ -226,6 +256,15 @@ public class FaceDetectionController {
     // B F D C6
     // 200-640 x
     // 200-480 y
+
+    public int calculateFreq(int step) {
+        return (int) (440 * Math.pow(2, ((double) (this.stepCount + step) / 12)));
+    }
+
+    public int timeExtender() {
+        return 80 + this.timeCount * 20;
+    }
+
 
     /**
      * The action triggered by selecting the Haar Classifier checkbox. It loads the trained set to
@@ -239,6 +278,7 @@ public class FaceDetectionController {
 
         this.checkboxSelection("resources/haarcascades/haarcascade_frontalface_alt.xml");
     }
+
 
     /**
      * The action triggered by selecting the LBP Classifier checkbox. It loads the trained set to be

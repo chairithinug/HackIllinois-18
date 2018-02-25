@@ -18,7 +18,12 @@
    					<Insets bottom="10" top="10" />
    				</padding>
       <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Press W to increase pitch Press S to decrease Press A to decrease duration Press D to increase duration" />
       				<CheckBox fx:id="haarClassifier" onAction="#haarSelected" text="Haar Classifier" />
+                  <Button fx:id="inc_key" mnemonicParsing="false" onAction="#increaseKey" text="Increase Key" />
+                  <Button fx:id="dec_key" mnemonicParsing="false" onAction="#decreaseKey" text="Decrease Key" />
+                  <Button fx:id="inc_time" mnemonicParsing="false" onAction="#increaseTime" text="Increase Time" />
+                  <Button fx:id="dec_time" mnemonicParsing="false" onAction="#decreaseTime" text="Decrease Time" />
       </children>
    			</HBox>
    </children>
