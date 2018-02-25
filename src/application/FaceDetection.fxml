@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.CheckBox?>
+
+<BorderPane prefHeight="1050" prefWidth="1680" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FaceDetectionController">
+	<top>
+		<VBox>
+   <children>
+   			<HBox alignment="CENTER" prefHeight="31.0" prefWidth="1680.0" spacing="10">
+   				<padding>
+   					<Insets bottom="10" top="10" />
+   				</padding>
+      <children>
+      				<CheckBox fx:id="haarClassifier" onAction="#haarSelected" text="Haar Classifier" />
+      </children>
+   			</HBox>
+   </children>
+		</VBox>
+	</top>
+	<bottom>
+		<HBox alignment="CENTER">
+			<padding>
+				<Insets bottom="25" left="25" right="25" top="25" />
+			</padding>
+   <children>
+   			<Button fx:id="cameraButton" alignment="center" disable="true" onAction="#startCamera" text="Start camera" />
+   </children>
+		</HBox>
+	</bottom>
+   <center>
+      <ImageView fx:id="originalFrame" fitHeight="800" fitWidth="1280" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
